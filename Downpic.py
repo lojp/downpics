@@ -27,9 +27,14 @@ if not images:
 images = [urljoin(response.url, url) for url in images]  
 print ('Found %s images' % len(images))
 
-# Only download first x 10
+index=1
 for url in images[0:100]:## 100 will scrape 100 pictures
-    r = requests.get(url)
-    f = open(folder + '/%s' % url.split('/')[-1], 'wb') 
-    f.write(r.content)
-    f.close()
+	try:
+		r = requests.get(url)
+		#f = open(folder + '/%s' % url.split('/')[-1], 'wb')
+		f = open(folder + '/%s' % str(index)+'.jpg', 'wb')
+		f.write(r.content)
+		f.close()
+	except:
+		continue
+	index+=1
